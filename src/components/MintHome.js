@@ -47,6 +47,7 @@ export default function MintHome () {
 
     const signedIn = !!walletAddress;
 
+    const [contract, setContract] = useState(null);
     const [contractWithSigner, setContractWithSigner] = useState(null);
     const [tokenPrice, setTokenPrice] = useState(0);
     const [howManyTokens, setHowManyTokens] = useState(20)
@@ -178,6 +179,7 @@ export default function MintHome () {
         const tokenPrice = await contract.cost();
         const paused = await contract.paused();
 
+        setContract(contract);
         setContractWithSigner(contractWithSigner);
         setTokenPrice(tokenPrice);
         setTotalSupply(totalSupply.toNumber())
@@ -219,15 +221,15 @@ export default function MintHome () {
             const price = String(tokenPrice * howManyTokens)
 
             const overrides = {
-                from: walletAddress, 
+                from: walletAddress,
                 value: price
             }
 
-            const gasBN = await ethereumSession.contract.estimateGas.mint(howManyTokens, overrides);
+            const gasBN = await ethereumSession.contract.estimateGas.mint(walletAddress, howManyTokens, overrides);
             const finalGasBN = gasBN.mul( ethers.BigNumber.from(11) ).div( ethers.BigNumber.from(10) );
             overrides.gasLimit = finalGasBN.toString();
 
-            const txn = await contractWithSigner.mint(howManyTokens, overrides)
+            const txn = await contractWithSigner.mint(walletAddress, howManyTokens, overrides)
             await txn.wait();
             setMintingSuccess(howManyTokens)
         } catch (error) {
