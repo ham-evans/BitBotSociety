@@ -11,12 +11,12 @@ export default function Welcome () {
             <div className="welcome__container">
                 <h1>Welcome to Bit Bot Society</h1> 
                 <p>Bots don’t use roadmaps, they are programmed with GPS to beep boop directly into the Metaverse!</p>
-                <button className="welcome__button"><a href="" target="_blank" rel="noreferrer" className="welcome__link">Bit Bot Opensea</a></button>
+                <button className="welcome__button"><a href="https://opensea.io/collection/bit-bot-society" target="_blank" rel="noreferrer" className="welcome__link">Bit Bot Opensea</a></button>
                 <div className="welcome-linksWrapper">
                     <Link className="welcome-links" to={{ pathname: "https://twitter.com/BitBotSociety" }} target="_blank" rel="noreferrer">
                         <FontAwesomeIcon icon={faTwitter} />
                     </Link>
-                    <Link className="welcome-links" to={{ pathname: "https://discord.gg/32mr9hy6ZV" }} target="_blank" rel="noreferrer">
+                    <Link className="welcome-links" to={{ pathname: "https://discord.com/invite/kG24rk4cMD" }} target="_blank" rel="noreferrer">
                         <FontAwesomeIcon icon={faDiscord} />
                     </Link>
                 </div>

@@ -30,7 +30,7 @@
     background-color: rgba(52,59,65,.95);
     position: absolute;
     right: 20vw;
-    top: 15vh;
+    top: 17vh;
     width: 60vw;
     height: 50vh;
     border-radius: 20px;
@@ -40,8 +40,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: #2add7a;
-    border: 2px solid #2add7a;;
+    color: #fff;
+    border: 3px solid #2add7a;;
 }
 
 .minthome__info { 
@@ -77,7 +77,7 @@
     margin-bottom: 30px;
     transition: all 0.35s;
     background:#000;
-    color: #2add7a;
+    color: #fff;
     border: 2px solid #2add7a;
     font-size: 1.2rem;
     font-family: 'Share Tech Mono', monospace;
@@ -98,7 +98,7 @@
     transition: all 0.35s;
     font-size: 1.2rem;
     background:#000;
-    color: #2add7a;
+    color: #fff;
     border: 2px solid #2add7a;
     font-family: 'Share Tech Mono', monospace;
 
@@ -110,9 +110,9 @@
 }
 
 .minthome__signIn-input input { 
-    width: 40%;
+    width: 35%;
     background:#000;
-    color: #2add7a;
+    color: #fff;
     border: 2px solid #2add7a;
     border-radius: 10px;
     text-align: center;
@@ -126,10 +126,10 @@
 
 .minthome__signIn-input-false input { 
     cursor: default;
-    width: 40%;
+    width: 35%;
     background:#000;
-    color: #2add7a;
-    border: 2px solid #2add7a;
+    color: #fff;
+    border: 2px solid #FF6347;
     border-radius: 10px;
     text-align: center;
     padding-top: 9px;
@@ -152,7 +152,7 @@
     margin-bottom: 10px;
     transition: all 0.35s;
     background:#000;
-    color: #2add7a;
+    color: #fff;
     border: 2px solid #2add7a;
     font-size: 1.3rem;
     font-family: 'Share Tech Mono', monospace;
@@ -176,8 +176,8 @@
     transition: all 0.35s;
     font-size: 1.3rem;
     background:#000;
-    color: #2add7a;
-    border: 2px solid #2add7a;
+    color: #fff;
+    border: 2px solid #FF6347;
     font-family: 'Share Tech Mono', monospace;
 
 }

@@ -1,30 +1,28 @@
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { WalletLinkConnector }    from "@web3-react/walletlink-connector";
 
-import './MintHome.css';
-import Giraffe from '../artifacts/contracts/GiraffesAtTheBar.sol/GiraffesAtTheBar.json';
-import { ethers } from 'ethers';
+import ContractAbi from '../artifacts/contracts/Bitbot.json';
 import Modal from './Modal.js';
+import "./MintHome.css";
 
+import { ethers } from 'ethers';
 import EthereumSession from '../lib/eth-session.js';
 
-
 const mainnetConfig = {
-    'CONTRACT': '0xccb754b5d99f41397b13bec72e0015d7bb2ab63e',
+    'CONTRACT': '0x68cf439BA5D2897524091Ef81Cb0A3D1F56E5500',
     'CHAIN_ID':  1,
-    'RPC_URL':   'https://mainnet.infura.io/v3/e08f25d6cba1481a8ea2cd2eb30fd267',
-    'ABI':       Giraffe.abi
+    'RPC_URL':   process.env.INFURA_API_MAINNET_KEY,
+    'ABI':       ContractAbi
 }
 
 /*
 const rinkebyConfig = {
-    'CONTRACT': '0x3f2a3678F8b818dA8888F1dF0c4FE7d5C3AA5dc5',
+    'CONTRACT': '0x91F9EA5939Cc707357808481b1B90ddaDa81bf33',
     'CHAIN_ID':  4,
-    'RPC_URL':   'https://rinkeby.infura.io/v3/e08f25d6cba1481a8ea2cd2eb30fd267',
-    'ABI':       Giraffe.abi
+    'RPC_URL':   process.env.INFURA_API_RINKEBY_KEY,
+    'ABI':       ContractAbi.abi
 }
 */
 
@@ -34,7 +32,7 @@ const CONNECTORS = {};
 CONNECTORS.Walletlink = new WalletLinkConnector({
     url: config.RPC_URL,
     appLogoUrl: null,
-    appName: "Giraffes At The Bar",
+    appName: "Bit Bot Society",
 });
 
 CONNECTORS.WalletConnect = new WalletConnectConnector({
@@ -42,19 +40,18 @@ CONNECTORS.WalletConnect = new WalletConnectConnector({
     rpc: config.RPC_URL,
 });
 
-const sleep = ms => new Promise(( resolve, reject ) => setTimeout( resolve, ms ));
-
 export default function MintHome () {
     const context = useWeb3React();
-    const saleMintMax = 20;
-
+    
     const [walletAddress, setWalletAddress] = useState(null);
+
     const signedIn = !!walletAddress;
 
-    const [giraffeWithSigner, setGiraffeWithSigner] = useState(null);
-    const [paused, togglePause] = useState(true);
-    const [giraffePrice, setGiraffePrice] = useState(0);
-    const [howManyGiraffes, setHowManyGiraffes] = useState(20)
+    const [contractWithSigner, setContractWithSigner] = useState(null);
+    const [tokenPrice, setTokenPrice] = useState(0);
+    const [howManyTokens, setHowManyTokens] = useState(20)
+    const [totalSupply, setTotalSupply] = useState(0);
+    const [paused, setPaused] = useState(true);
 
     const [modalShown, toggleModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -84,7 +81,6 @@ export default function MintHome () {
                 .catch( err => {
                     if( err.code === "CALL_EXCEPTION" ){
                         //we're on the wrong chain
-                        console.log("yup")
                     }
                     else{
                         debugger
@@ -141,7 +137,7 @@ export default function MintHome () {
         try{
             let curChain = await ethereumSession.getWalletChainID();
             await ethereumSession.connectEthers( true );
-            if( curChain != ethereumSession.chain.hex ){
+            if( curChain !== ethereumSession.chain.hex ){
                 curChain = await ethereumSession.getWalletChainID();
                 if( curChain === ethereumSession.chain.hex ){
                     //force the browser to switch to the new chain
@@ -160,9 +156,8 @@ export default function MintHome () {
             }
         }
         catch( error ){
-            alert( error );
             if (error.code === 4001) {
-                setErrorMessage("Sign in to mint Giraffes!")
+                setErrorMessage("Sign in to mint Bit Bots!")
                 toggleModal(true);
             } else { 
                 setErrorMessage(error)
@@ -176,27 +171,28 @@ export default function MintHome () {
     }
 
     async function loadContractData () {
-        const giraffeContract = ethereumSession.contract;
-        const signer = ethereumSession.ethersProvider.getSigner()
+        const contract = ethereumSession.contract;
+        const signer = ethereumSession.ethersProvider.getSigner();
+        const contractWithSigner = contract.connect(signer)
+        const totalSupplyInit = await contract.totalSupply();
+        const tokenPrice = await contract.cost();
+        const paused = await contract.paused();
 
-        const giraffeWithSigner = giraffeContract.connect(signer)
-        const salebool = await giraffeContract.paused();
-        const giraffePrice = await giraffeContract.price();
-
-        setGiraffeWithSigner(giraffeWithSigner);
-        togglePause(salebool);
-        setGiraffePrice(giraffePrice);
+        setContractWithSigner(contractWithSigner);
+        setTokenPrice(tokenPrice);
+        setTotalSupply(totalSupplyInit.toNumber())
+        setPaused(paused);
     }
 
-    async function mintGiraffe () { 
-        if (!signedIn || !giraffeWithSigner){
+    async function mint () { 
+        if (!signedIn || !contractWithSigner){
             setErrorMessage("Please connect wallet or reload the page!")
             toggleModal(true);
             return
         }
 
         if( paused ){
-            setErrorMessage("Sale is not active yet.  Try again later!")
+            setErrorMessage("Sale is not active right now.  Try again later!")
             toggleModal(true);
             return;
         }
@@ -213,27 +209,27 @@ export default function MintHome () {
             return;
         }
 
-        if ( ethereumSession.chain.hex != await ethereumSession.getWalletChainID() ){
+        if ( ethereumSession.chain.hex !== await ethereumSession.getWalletChainID() ){
             window.location.reload();
             return;
         }
 
         //connected
         try{
-            const price = String(giraffePrice  * howManyGiraffes)
+            const price = String(tokenPrice * howManyTokens)
 
             const overrides = {
                 from: walletAddress, 
                 value: price
             }
 
-            const gasBN = await ethereumSession.contract.estimateGas.mint(howManyGiraffes, overrides);
+            const gasBN = await ethereumSession.contract.estimateGas.mint(howManyTokens, overrides);
             const finalGasBN = gasBN.mul( ethers.BigNumber.from(11) ).div( ethers.BigNumber.from(10) );
             overrides.gasLimit = finalGasBN.toString();
 
-            const txn = await giraffeWithSigner.mint(howManyGiraffes, overrides)
+            const txn = await contractWithSigner.mint(howManyTokens, overrides)
             await txn.wait();
-            setMintingSuccess(howManyGiraffes)
+            setMintingSuccess(howManyTokens)
         } catch (error) {
             if (error.error) {
                 setMintingError(error.error.message)
@@ -241,8 +237,8 @@ export default function MintHome () {
         }
     }
 
-    const setMintingSuccess = (howManyGiraffes) => {
-        setErrorMessage("Congrats on minting " + howManyGiraffes + " Giraffes!!");
+    const setMintingSuccess = (howManyTokens) => {
+        setErrorMessage("Congrats on minting " + howManyTokens + "  Bit Bots!!");
         toggleModal(true);
     }
 
@@ -251,32 +247,33 @@ export default function MintHome () {
         toggleModal(true);
     }
 
+    const mintOne = () => { 
+        setErrorMessage("Must mint atleast one Bit Bot!")
+        toggleModal(true);
+    }
+
     function checkHowMany (newNumber) { 
         if (newNumber > 20) {
-            setHowManyGiraffes(20)
+            setHowManyTokens(20)
         } else if (newNumber < 1) { 
-            setHowManyGiraffes("")
+            setHowManyTokens("")
         } else { 
-            setHowManyGiraffes(newNumber) 
+            setHowManyTokens(newNumber) 
         }
     }
 
-    const mintOne = () => { 
-        setErrorMessage("Must mint atleast one Giraffe!")
-        toggleModal(true);
-    }
-    //onClick={() => mintGiraffe()}
-    const paraText = signedIn ? "Input number of Bit Bots to mint (max 20): " : "Sign in above to mint Bit Bots!"
+    const paraText = signedIn ? "INPUT NUMBER OF BIT BOTS TO MINT (0.015 ETH): " : "CONNECT WALLET ABOVE TO MINT BIT BOTS!"
+    const buttonText = signedIn ? "MINT " + howManyTokens + " BIT BOTS!" : "CONNECT WALLET TO MINT"
 
     return (
         <div id="#home">
             <div className="minthomeBg" />
             <div className="minthome__container">
                 <div className="minthome__info">
-                    <h1>Mint a Bit Bot!</h1>
+                    <h1>MINT A BIT BOT!</h1>
                     <div className="minthome__signIn"> 
-                        {!signedIn ? <button onClick={signIn}>Connect Wallet</button>
-                            : <button onClick={signOut}>Wallet Connected<br /> Click to sign out</button>
+                        {!signedIn ? <button onClick={signIn}>CONNECT WALLET</button>
+                            : <button onClick={signOut}>WALLET CONNECTED<br /> CLICK TO SIGN OUT</button>
                         }
                     </div>
                     
@@ -286,8 +283,8 @@ export default function MintHome () {
                         <input 
                             type="number" 
                             min="1"
-                            max={saleMintMax}
-                            value={howManyGiraffes}
+                            max="20"
+                            value={howManyTokens}
                             onChange={ e => checkHowMany(e.target.value) }
                             name="" 
                         />
@@ -296,8 +293,8 @@ export default function MintHome () {
                     <br/>
                     
                     <div className={signedIn ? "minthome__mint" : "minthome__mint-false"}>
-                        {howManyGiraffes > 0 ? <button>MINT {howManyGiraffes} BIT BOTS!</button>
-                            : <button onClick={() => mintOne()}>MINT {howManyGiraffes} BIT BOTS!</button>
+                        {howManyTokens > 0 ? <button onClick={() => mint()}>{buttonText}</button>
+                            : <button onClick={() => mintOne()}>{buttonText}</button>
                         }
                     </div>
                 </div>

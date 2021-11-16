@@ -55,7 +55,8 @@
     display: flex;
     list-style: none;
     text-align: center;
-    overflow: visible;
+    padding-right: 25px;
+    overflow-x: hidden;
   }
   
   .nav-links {
@@ -63,7 +64,6 @@
     text-decoration: none;
     padding: 0.5rem 0.5rem;
     height: 100%;
-    overflow-y: hidden;
   }
   .fa-code {
     margin-left: 1rem;
@@ -127,9 +127,10 @@
       left: 0px;
       right: 0px;
       opacity: 1;
-      padding-left: 9px;
       transition: all 0.5s ease;
-      width: 98vw;
+      width: 100vw;
+      padding-right: 0;
+      padding-left: 0;
     }
 
     .nav-item { 

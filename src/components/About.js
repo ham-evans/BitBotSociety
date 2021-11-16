@@ -14,7 +14,7 @@ export default function About () {
             </div>
             <div className="about__container"  >
                 <h1>About Bit Bot Society</h1> 
-                <p>Bit Bot Society is a collection of 10,000 Robot NFTs living on the Ethereum blockchain who beep boop right into the Metaverse. Each Bit Bot NFT is uniquely generated from a pool of 152+ different traits!</p>
+                <p>Bit Bot Society is a collection of 9,999 Robot NFTs living on the Ethereum blockchain who beep boop right into the Metaverse. Each Bit Bot NFT is uniquely generated from a pool of 152+ different traits!</p>
             </div>
         </div>
     );

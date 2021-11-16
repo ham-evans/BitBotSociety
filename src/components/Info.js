@@ -18,7 +18,7 @@ export default function Info () {
                         Airdrops to holders as mint proceeds.
                     </li>
                     <li>
-                        Total number of Bit Bot NFTs: 10,000
+                        Total number of Bit Bot NFTs: 9,999
                     </li>
                     <li>
                         Price per NFT: 0.015 ETH + gas (REDUCED GAS)

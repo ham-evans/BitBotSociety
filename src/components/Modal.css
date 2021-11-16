@@ -4,7 +4,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,9 +13,9 @@
   
 .modal-content {
     width: 50%;
-    min-height: 150px;
+    min-height: 200px;
     height: auto;
-    padding: 25px;
+    padding: 40px;
     border-radius: 20px;
     background-position: center;
     background-size: cover;
@@ -23,10 +23,13 @@
     justify-content: center;
     align-items: center;
     text-align:center;
+    border: 3px solid #e6c7fb;
+    padding-top: 60px;
+    padding-bottom: 60px;
 }
 
 .modal-content button { 
-  background-color: #efe49f;
+  background-color: #e6c7fb;
   border: none;
   font-size: 1.1rem;
   border-radius: 10px;
@@ -45,11 +48,11 @@
 }
 
 .modal__text { 
-  background-color: #efe49f;
+  background-color: #e6c7fb;
   height: 100%;
   border-radius: 10px;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .modal__text div{ 

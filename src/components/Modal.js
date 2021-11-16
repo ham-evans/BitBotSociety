@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react'; 
 import './Modal.css';
-import pattern from '../images/pattern.png';
+import pattern from '../images/star2.jpeg';
 
 export default function Modal({ children, shown, close, message }) {
     return shown ? (
