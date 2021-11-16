@@ -41,7 +41,7 @@ export default class Navbar extends Component {
                 to="#roadmap"
                 className="nav-links"
               >
-                ROADMAP
+                VISION
               </HashLink>
             </li>
             <li className="nav-item">
@@ -50,7 +50,7 @@ export default class Navbar extends Component {
                 to="#team"
                 className="nav-links"
               >
-                TEAM
+                FOUNDERS
               </HashLink>
             </li>
             <li className="nav-item">
