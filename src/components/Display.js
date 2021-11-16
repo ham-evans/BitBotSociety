@@ -11,7 +11,7 @@ import h from '../images/8.png';
 
 export default function Display () {
     return (
-        <div className="display__wrapper" id="display">
+        <div className="display__wrapper" id="roadmap">
             <div className="display">
                 <h1>Vision for the Community and Future</h1>
                 <p>We lowered gas for everyone so we can all beep boop into the metaverse! #BeepboopBitbot</p>

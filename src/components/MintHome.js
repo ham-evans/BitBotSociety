@@ -174,13 +174,13 @@ export default function MintHome () {
         const contract = ethereumSession.contract;
         const signer = ethereumSession.ethersProvider.getSigner();
         const contractWithSigner = contract.connect(signer)
-        const totalSupplyInit = await contract.totalSupply();
+        const totalSupply = await contract.totalSupply();
         const tokenPrice = await contract.cost();
         const paused = await contract.paused();
 
         setContractWithSigner(contractWithSigner);
         setTokenPrice(tokenPrice);
-        setTotalSupply(totalSupplyInit.toNumber())
+        setTotalSupply(totalSupply.toNumber())
         setPaused(paused);
     }
 
@@ -262,8 +262,11 @@ export default function MintHome () {
         }
     }
 
+    const oneText = howManyTokens < 2 && howManyTokens > 0 ? "MINT " + howManyTokens + " BIT BOT!" : "MINT " + howManyTokens + " BIT BOTS!"
+    const zeroText = howManyTokens < 1 ? "MUST MINT ATLEAST 1 BIT BOT" : oneText
+
     const paraText = signedIn ? "INPUT NUMBER OF BIT BOTS TO MINT (0.015 ETH): " : "CONNECT WALLET ABOVE TO MINT BIT BOTS!"
-    const buttonText = signedIn ? "MINT " + howManyTokens + " BIT BOTS!" : "CONNECT WALLET TO MINT"
+    const buttonText = signedIn ? zeroText : "CONNECT WALLET TO MINT"
 
     return (
         <div id="#home">
@@ -277,6 +280,7 @@ export default function MintHome () {
                         }
                     </div>
                     
+                    <p>BIT BOTS MINTED: {totalSupply} / 9,999</p>
                     <p>{paraText}</p>
                     
                     <div className={signedIn ? "minthome__signIn-input" : "minthome__signIn-input-false"}>
@@ -292,9 +296,9 @@ export default function MintHome () {
                     
                     <br/>
                     
-                    <div className={signedIn ? "minthome__mint" : "minthome__mint-false"}>
+                    <div className={signedIn && howManyTokens > 0 ? "minthome__mint" : "minthome__mint-false"}>
                         {howManyTokens > 0 ? <button onClick={() => mint()}>{buttonText}</button>
-                            : <button onClick={() => mintOne()}>{buttonText}</button>
+                            : <button>{buttonText}</button>
                         }
                     </div>
                 </div>
