@@ -7,7 +7,7 @@ export default function About () {
     return (
         <div className="about" id="project" style={{ backgroundImage: `url(${pattern})` }}>
             <div className="about__wrapper" dangerouslySetInnerHTML={{
-                __html: `<video className="app__backgroundVideo" loop playsinline controls>
+                __html: `<video className="app__backgroundVideo" autoplay muted loop playsinline controls>
                             <source src=${rap} type="video/mp4" />
                             Your browser does not support the video tag.
                         </video>`,
