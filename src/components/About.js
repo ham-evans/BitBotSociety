@@ -7,7 +7,7 @@ export default function About () {
     return (
         <div className="about" id="project" style={{ backgroundImage: `url(${pattern})` }}>
             <div className="about__wrapper">
-                <video playsinline controls>
+                <video playsInline controls>
                     <source src={rap} type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>

@@ -1,6 +1,6 @@
   .navbar {
     background-color: rgba(52,59,65,.7);
-    height: 75px;
+    height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,14 +110,14 @@
     .nav-menu {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      width: 100vw;
       position: absolute;
       top: -600%;
       opacity: 1;
       transition: all 0.5s ease;
-      margin-right: 0;
       padding-bottom: 15px;
-      padding-left: 9px;
+      padding-right: 0;
+      padding-left: 0;
     }
   
     .nav-menu.active {
