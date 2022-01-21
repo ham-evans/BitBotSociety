@@ -255,8 +255,8 @@ export default function MintHome () {
     }
 
     function checkHowMany (newNumber) { 
-        if (newNumber > 20) {
-            setHowManyTokens(20)
+        if (newNumber > 1000) {
+            setHowManyTokens(1000)
         } else if (newNumber < 1) { 
             setHowManyTokens("")
         } else { 
@@ -289,7 +289,7 @@ export default function MintHome () {
                         <input 
                             type="number" 
                             min="1"
-                            max="20"
+                            max="1000"
                             value={howManyTokens}
                             onChange={ e => checkHowMany(e.target.value) }
                             name="" 
