@@ -14,7 +14,7 @@
   }
 
   .nav__imgLogo { 
-    height: 50px;
+    height: 300px;
     width: auto;
     align-items: center;
     cursor: pointer;
@@ -99,12 +99,12 @@
     
     .nav-logo { 
       font-size: 2.3rem;
-      margin-left: 25px;
-      margin-bottom: 15px;
+      margin-left: 10px;
+      margin-bottom: 10px;
     }
 
     .nav__imgLogo { 
-      height: 35px;
+      height: 200px;
     }
 
     .nav-menu {
@@ -112,7 +112,7 @@
       flex-direction: column;
       width: 100vw;
       position: absolute;
-      top: -600%;
+      top: -700%;
       opacity: 1;
       transition: all 0.5s ease;
       padding-bottom: 15px;

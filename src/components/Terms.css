@@ -1,0 +1,26 @@
+.terms {
+    height: 100%;
+    background-color: black;
+    color: white;
+}
+
+.terms__container {
+    margin: 14vh 20vw;
+}
+
+.terms__container h1 {
+    font-size: 3rem;
+}
+
+.update {
+    margin-bottom: 5vh;
+}
+
+.term__text {
+    padding-bottom: 10vh;
+    border-bottom: 1px solid white;
+}
+
+.terms__container h3 {
+    margin-top: 10vh;
+}

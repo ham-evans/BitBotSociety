@@ -1,0 +1,23 @@
+.owners {
+    height: 100%;
+    background-color: black;
+    color: white;
+}
+
+.owners__container {
+    margin: 14vh 20vw;
+}
+
+.owners__container h1 {
+    font-size: 3rem;
+}
+
+.owners__container h3 {
+    margin-top: 10vh;
+}
+
+.owners__container h4 {
+    margin-top: 10vh;
+    padding-bottom: 10vh;
+    border-bottom: 1px solid white;
+}

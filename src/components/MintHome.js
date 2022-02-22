@@ -32,7 +32,7 @@ const CONNECTORS = {};
 CONNECTORS.Walletlink = new WalletLinkConnector({
     url: config.RPC_URL,
     appLogoUrl: null,
-    appName: "Bit Bot Society",
+    appName: "BitBot Society",
 });
 
 CONNECTORS.WalletConnect = new WalletConnectConnector({
@@ -158,7 +158,7 @@ export default function MintHome () {
         }
         catch( error ){
             if (error.code === 4001) {
-                setErrorMessage("Sign in to mint Bit Bots!")
+                setErrorMessage("Sign in to mint BitBots!")
                 toggleModal(true);
             } else { 
                 setErrorMessage(error)
@@ -240,7 +240,7 @@ export default function MintHome () {
     }
 
     const setMintingSuccess = (howManyTokens) => {
-        setErrorMessage("Congrats on minting " + howManyTokens + "  Bit Bots!!");
+        setErrorMessage("Congrats on minting " + howManyTokens + "  BitBots!!");
         toggleModal(true);
     }
 
@@ -250,7 +250,7 @@ export default function MintHome () {
     }
 
     const mintOne = () => { 
-        setErrorMessage("Must mint atleast one Bit Bot!")
+        setErrorMessage("Must mint atleast one BitBot!")
         toggleModal(true);
     }
 
@@ -264,10 +264,10 @@ export default function MintHome () {
         }
     }
 
-    const oneText = howManyTokens < 2 && howManyTokens > 0 ? "MINT " + howManyTokens + " BIT BOT!" : "MINT " + howManyTokens + " BIT BOTS!"
-    const zeroText = howManyTokens < 1 ? "MUST MINT ATLEAST 1 BIT BOT" : oneText
+    const oneText = howManyTokens < 2 && howManyTokens > 0 ? "MINT " + howManyTokens + " BITBOT!" : "MINT " + howManyTokens + " BITBOTS!"
+    const zeroText = howManyTokens < 1 ? "MUST MINT ATLEAST 1 BITBOT" : oneText
 
-    const paraText = signedIn ? "INPUT NUMBER OF BIT BOTS TO MINT (0.015 ETH): " : "CONNECT WALLET ABOVE TO MINT BIT BOTS!"
+    const paraText = signedIn ? "INPUT NUMBER OF BITBOTS TO MINT (0.015 ETH): " : "CONNECT WALLET ABOVE TO MINT BITBOTS!"
     const buttonText = signedIn ? zeroText : "CONNECT WALLET TO MINT"
 
     return (
@@ -275,14 +275,14 @@ export default function MintHome () {
             <div className="minthomeBg" />
             <div className="minthome__container">
                 <div className="minthome__info">
-                    <h1>MINT A BIT BOT!</h1>
+                    <h1>MINT A BITBOT!</h1>
                     <div className="minthome__signIn"> 
                         {!signedIn ? <button onClick={signIn}>CONNECT WALLET</button>
                             : <button onClick={signOut}>WALLET CONNECTED<br /> CLICK TO SIGN OUT</button>
                         }
                     </div>
                     
-                    <p>BIT BOTS MINTED: {totalSupply} / 9,999</p>
+                    <p>BITBOTS MINTED: {totalSupply} / 9,999</p>
                     <p>{paraText}</p>
                     
                     <div className={signedIn ? "minthome__signIn-input" : "minthome__signIn-input-false"}>

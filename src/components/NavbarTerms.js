@@ -8,7 +8,7 @@ import logo from '../images/logo.png'
 
 import "./Navbar.css";
 
-export default class Navbar extends Component { 
+export default class NavbarTerms extends Component { 
   state = {
     isOpen: false
   };
@@ -21,37 +21,18 @@ export default class Navbar extends Component {
     return (
       <nav className={this.state.isOpen ? "navbar active" : "navbar"} id="#fullhome">
         <div className="nav-container">
-          <HashLink smooth to="#fullhome" className="nav-logo">
+          <Link to="/" className="nav-logo">
             <img className="nav__imgLogo" src={logo} alt="GATB Logo"/>
-          </HashLink>
+          </Link>
 
           <ul className={this.state.isOpen ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <HashLink
-                smooth
-                to="#project"
+              <Link
+                to="/"
                 className="nav-links"
               >
-                WHY BITBOTS
-              </HashLink>
-            </li>
-            <li className="nav-item">
-              <HashLink
-                smooth
-                to="#roadmap"
-                className="nav-links"
-              >
-                ROADMAP
-              </HashLink>
-            </li>
-            <li className="nav-item">
-              <HashLink
-                smooth 
-                to="#team"
-                className="nav-links"
-              >
-                TEAM
-              </HashLink>
+                HOME
+              </Link>
             </li>
             <li className="nav-item">
               <a href="https://raritysniper.com/bit-bot-society" rel="noopener noreferrer" target="_blank" className="nav-links">
